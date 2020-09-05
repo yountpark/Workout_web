@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, session, render_template, request
+from flask import Flask, redirect, url_for, session, render_template, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow, pprint
 from flask_migrate import Migrate
@@ -56,6 +56,14 @@ def create_app(mode='dev'):
         user_name = session['user_name']
 
         return render_template('homepage/index.html', user_name=user_name)
+
+    @app.route('/test')
+    def test():
+        return render_template('cam.html')
+
+    @app.route('/my_model/<path:path>')
+    def send_file(path):
+        return send_from_directory('my_model', path)
 
     return app
 
