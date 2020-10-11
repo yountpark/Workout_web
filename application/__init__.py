@@ -26,7 +26,13 @@ def create_app(mode='dev'):
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
     from application.views.google_api import google_api_bp
+    from application.views.user import user_bp
+    from application.views.cumulative_result import cumulative_bp
+    from application.views.routings import route_bp
     app.register_blueprint(google_api_bp)
+    app.register_blueprint(user_bp)
+    app.register_blueprint(cumulative_bp)
+    app.register_blueprint(route_bp)
 
     @app.route('/playing')
     def input_video():
