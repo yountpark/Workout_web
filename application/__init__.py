@@ -42,17 +42,6 @@ def create_app(mode='dev'):
     def init():
         return render_template('homepage/index.html', user_name=None)
 
-    @app.route('/<path:name>')
-    def routing(name):
-        path = 'homepage/' + str(name) + '.html'
-
-        if 'user_name' in session:
-            user_name = session['user_name']
-        else:
-            user_name = None
-
-        return render_template(path, user_name=user_name)
-
     @app.route('/main')
     def main():
         if 'google_id' not in session and 'user_name' not in session:

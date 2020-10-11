@@ -319,8 +319,8 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Charts</h1>
-          <p class="mb-4">Chart.js is a third party plugin that is used to generate the charts in this theme. The charts below have been customized - for further customization options, please visit the <a target="_blank" href="https://www.chartjs.org/docs/latest/">official Chart.js documentation</a>.</p>
+          <h1 class="h3 mb-2 text-gray-800">나의 기록</h1>
+          <p class="mb-4"> 주별과 월별 나의 제자리뛰기와 스쿼트 기록을 확인할 수 있습니다. <a target="_blank" href="https://www.chartjs.org/docs/latest/">official Chart.js documentation</a>.</p>
 
           <!-- Content Row -->
           <div class="row">
@@ -330,7 +330,7 @@
               <!-- Area Chart -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">월별 스쿼트 운동량</h6>
                 </div>
                 <div class="card-body">
                   <div class="chart-area">
@@ -344,25 +344,27 @@
               <!-- Bar Chart -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">월별 덤벨숄더프레스 운동량</h6>
                 </div>
                 <div class="card-body">
-                  <div class="chart-bar">
-                    <canvas id="myBarChart"></canvas>
+                  <div class="chart-area">
+                    <canvas id="myAreaChart2"></canvas>
                   </div>
                   <hr>
-                  Styling for the bar chart can be found in the <code>/js/demo/chart-bar-demo.js</code> file.
+                  Styling for the bar chart can be found in the <code>/js/demo/chart-area-demo2.js</code> file.
                 </div>
               </div>
 
             </div>
+
+          
 
             <!-- Donut Chart -->
             <div class="col-xl-4 col-lg-5">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">나의 운동비중</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -432,13 +434,14 @@
   <!-- Custom scripts for all pages-->
   <script src="static/js/sb-admin-2.min.js"></script>
 
-  <!-- Page level plugins -->
+  <!— Page level plugins —>
   <script src="static/vendor/chart.js/Chart.min.js"></script>
 
-  <!-- Page level custom scripts -->
+  <!— Page level custom scripts —>
   <script src="static/js/demo/chart-area-demo.js"></script>
+  <script src="static/js/demo/chart-area-demo2.js"></script>
   <script src="static/js/demo/chart-pie-demo.js"></script>
-  <script src="static/js/demo/chart-bar-demo.js"></script>
+  
 
 </body>
 
