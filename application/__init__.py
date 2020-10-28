@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 from application.views.google_api import print_index_table
 from flask_socketio import SocketIO
+from flask_cors import CORS
 import os
 
 
@@ -25,7 +26,7 @@ def create_app(mode='dev'):
     ma.init_app(app)
     migrate.init_app(app, db)
     socketio.init_app(app)
-
+    CORS(app)
 
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
