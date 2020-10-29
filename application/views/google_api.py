@@ -35,7 +35,7 @@ def oauth2callback():
 
     credentials = flow.credentials
     session['credentials'] = credentials_to_dict(credentials)
-
+    print(session['credentials'])
     return redirect(url_for('google_api.user_auth'))
 
 
@@ -53,7 +53,6 @@ def logout_credentials():
         del session['credentials']
 
     return render_template('homepage/index.html', user_name=None)
-
 
 @google_api_bp.route('/authenticate-token')
 def user_auth():

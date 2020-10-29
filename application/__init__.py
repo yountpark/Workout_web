@@ -20,6 +20,7 @@ def create_app(mode='dev'):
     app = Flask(__name__)
 
     from application.config import config_name
+    from application.models import user, cumulative_result, total_results
     app.config.from_object(config_name[mode])
 
     db.init_app(app)
@@ -34,9 +35,11 @@ def create_app(mode='dev'):
     from application.views.user import user_bp
     from application.views.cumulative_result import cumulative_bp
     from application.views.routings import route_bp
+    from application.views.total_results import total_bp
     app.register_blueprint(google_api_bp)
     app.register_blueprint(user_bp)
     app.register_blueprint(cumulative_bp)
+    app.register_blueprint(total_bp)
     app.register_blueprint(route_bp)
 
     @app.route('/playing')
@@ -57,9 +60,9 @@ def create_app(mode='dev'):
 
         return render_template('homepage/index.html', user_name=user_name)
 
-    @app.route('/test')
-    def test():
-        return render_template('cam.html')
+    # @app.route('/test')
+    # def test():
+    #     return render_template('cam.html')
 
     @app.route('/my_model/squat/<path:path>')
     def send_squat_file(path):
@@ -71,9 +74,6 @@ def create_app(mode='dev'):
         print(path)
         return send_from_directory('my_model/shoulder/', path)
 
-    @socketio.on('myconnect')
-    def handle_connect(data):
-        print(data['count'])
     return app
 
 
