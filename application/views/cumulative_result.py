@@ -22,20 +22,30 @@ class Cumulative(Resource):
             return redirect('/authorize')
 
         record = CumulativeResult.query.filter(CumulativeResult.google_id == id).all()
-        print(record)
-        return str(record)
 
-    def post(self, id):
-        pass
+        return cumulative_schema.dumps(record, many=True)
 
-    def put(self, id):
-        pass
+    def post(self, id=None):
+        data = request.args
 
-    def delete(self, id):
-        pass
+        google_id = data.get('google_id')
+        type_ = data.get('type')
+        count = data.get('count')
+
+        old_result = CumulativeResult.query.filter(CumulativeResult.google_id == google_id and CumulativeResult.type == type_).one()
+
+        CumulativeResult.query.filter(CumulativeResult.google_id == google_id and CumulativeResult.type == type_).delete()
+        session.commit()
+
+        new_result = CumulativeResult(google_id=google_id, times=(old_result.get_times() + 1), cumulative_count=(old_result.get_count() + int(count)), type=type_)
+
+        session.add(new_result)
+        session.commit()
+
+        return "register complete!"
 
 
-api.add_resource(Cumulative, '/<string:id>')
+api.add_resource(Cumulative, '/')
 
 
 # class AllUsers(Resource):

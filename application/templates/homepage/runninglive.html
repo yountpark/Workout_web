@@ -324,11 +324,10 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">실시간 촬영</h1>
 
-
+        
 
             <div class="col-xs-12">
 
@@ -338,125 +337,25 @@
                   <h6 class="m-0 font-weight-bold text-primary">카메라야 나타나줘 제발</h6>
                 </div>
                 <div class="card-body">
-                  <div>Teachable Machine Pose Model</div>
-                  <button type="button" onclick="init()">Start</button>
-                  <button type="button" id = "stop_btn" onclick="stop_func()">stop</button>
-                  <!-- <canvas id = "canvas" width = "640" height="480"></canvas> -->
-                  <div><canvas id="canvas" width = "640" height="480"></canvas></div>
-                  <div id="label-container"></div>
-                  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-                  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
-                  <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
-                  <!-- <script src="https://unpkg.com/whatwg-fetch@2.0.4/fetch.js"></script> -->
-                  <script type="text/javascript">
-                      // More API functions here:
-                      // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/pose
-
-                      // the link to your model provided by Teachable Machine export panel
-                      const URL = "./my_model/shoulder/";
-                      let model, webcam, ctx, labelContainer, maxPredictions;
-                      var stop_var = 0;
-                      var count = 0;
-                      var stand = 0;
-                      async function init() {
-                          const modelURL = URL + "model.json";
-                          const metadataURL = URL + "metadata.json";
-
-                          // load the model and metadata
-                          // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-                          // Note: the pose library adds a tmPose object to your window (window.tmPose)
-                          model = await tmPose.load(modelURL, metadataURL);
-                          maxPredictions = model.getTotalClasses();
-
-                          // Convenience function to setup a webcam
-                          const width = 640;
-                          const height = 480
-                          const flip = true; // whether to flip the webcam
-                          webcam = new tmPose.Webcam(width, height, flip); // width, height, flip
-                          await webcam.setup(); // request access to the webcam
-                          await webcam.play();
-                          window.requestAnimationFrame(loop);
-
-                          // append/get elements to the DOM
-                          const canvas = document.getElementById("canvas");
-                          canvas.width = width; canvas.height = height;
-                          ctx = canvas.getContext("2d");
-                          labelContainer = document.getElementById("label-container");
-                          for (let i = 0; i < maxPredictions; i++) { // and class labels
-                              labelContainer.appendChild(document.createElement("div"));
-                          }
-                      }
-
-                      function stop_func(){
-                          stop_var = 1;
-                      }
-
-
-                      async function loop(timestamp) {
-                          webcam.update(); // update the webcam frame
-                          if(stop_var == 0){
-                              await predict();
-                              window.requestAnimationFrame(loop);
-                          }
-                          else{
-                            var data = {
-                              'count' : count,
-                              'kind' : 'shoulder'
-                            }
-                            fetch('http://localhost:5000/exercise_end', {
-                              method : 'POST',
-                              headers: { 'Content-Type': 'application/json' },
-                              body : JSON.stringify(data)
-                            }).then(function(res){
-                              console.log(res);
-                              window.location.href = res.url;
-                            })
-
-                          }
-                      }
-
-                      async function predict() {
-                          // Prediction #1: run input through posenet
-                          // estimatePose can take in an image, video or canvas html element
-                          const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
-                          // Prediction 2: run input through teachable machine classification model
-                          const prediction = await model.predict(posenetOutput);
-
-                          for (let i = 0; i < maxPredictions; i++) {
-                              const classPrediction =
-                                  prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-                                  if(i == 0 && prediction[i].probability.toFixed(2) >= 0.9){
-                                    stand = 1;
-                                  }
-                                  if(i == 1 && prediction[i].probability.toFixed(2) >= 0.9 && stand == 1){
-                                    count += 1;
-                                    stand = 0;
-                                  }
-                                  console.log(count);
-                              labelContainer.childNodes[i].innerHTML = classPrediction;
-                          }
-
-                          // finally draw the poses
-                          drawPose(pose);
-                      }
-
-                      function drawPose(pose) {
-                          if (webcam.canvas) {
-                              ctx.drawImage(webcam.canvas, 0, 0);
-                              // draw the keypoints and skeleton
-                              if (pose) {
-                                  const minPartConfidence = 0.5;
-                                  tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
-                                  tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
-                              }
-                          }
-                      }
-                  </script>
+                  <div class = "booth">  
+                    <!-- <video id = "video" width = "640" height="480" autoplay></video> -->
+                    <button id = "start">start</button>
+                    <button id = "stop">stop</button>
+                    <canvas id = "canvas" width = "640" height="480"></canvas>
+                    <!-- <canvas id = "canvas2" width = "640" height="480"></canvas> -->
+                    
+                    
+                </div>
+                <script src= "{{ url_for('static', filename='js/cam_script.js') }}" ></script>
+                <!-- <script src= "./static/javascripts/cam_script.js" ></script> -->
                 </div>
               </div>
 
             </div>
             </div>
+
+         
+
 
             <div class="col-xl-4 col-lg-5">
               <div class="card shadow mb-4">

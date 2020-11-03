@@ -7,7 +7,7 @@ from flask_restful import Resource
 import datetime
 
 total_bp = Blueprint("total", __name__, url_prefix='/total-result')
-user_schema = TotalResultsSchema()
+total_schema = TotalResultsSchema()
 session = db.session
 api = api(total_bp)
 headers = {'Content-Type': 'text/html'}
@@ -15,27 +15,29 @@ headers = {'Content-Type': 'text/html'}
 
 class TotalResult(Resource):
 
-    def get(self, id):
-        user = User.query.filter(User.google_id == id).all()
+    def get(self):
 
-        if not user:
-            return redirect('/authorize')
+        # user = User.query.filter(User.google_id == id).all()
+        #
+        # if not user:
+        #     return redirect('/authorize')
 
         total = TotalResults.query.all()
 
-        return user
+        return str(total)
+        # return total_schema.dump(total, many=True)
 
-    def post(self, id):
-        pass
+    def post(self, id=None):
+        data = request.args
 
-    def put(self, id):
-        pass
+        exercise_result = TotalResults(google_id=data.get('google_id'), count=data.get('count'), type=data.get('type'))
+        session.add(exercise_result)
+        session.commit()
 
-    def delete(self, id):
-        pass
+        return "register complete!"
 
 
-api.add_resource(TotalResults, '/<string:id>')
+api.add_resource(TotalResult, '/')
 
 
 # class AllUsers(Resource):

@@ -30,7 +30,7 @@ pyopenssl = "*"
 arrow = "*"
 numpy = "*"
 flask-socketio = "*"
-flask-cors = "*"
+mysqlclient = "*"
 
 [requires]
 python_version = "3.7.5"
