@@ -61,6 +61,11 @@ def create_app(mode='dev'):
 
         return render_template('homepage/index.html', user_name=user_name)
 
+    @app.route('/temp')
+    def hello():
+        data = {'username': 'Pang', 'site': 'stackoverflow.com'}
+        return render_template('homepage/test.html', data=data)
+
 
     @socketio.on('message')
     def handle_connect(msg):
