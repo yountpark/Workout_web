@@ -13,14 +13,14 @@ class ProdConfig(Config):
     ENV = 'production'
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = 'mysql://root:z748159@localhost:3306/prod_db?charset=utf8'
-
+    # for hisan
 
 class DevConfig(Config):
     ENV = 'development'
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'mysql://root:z748159@localhost:3306/dev_db?charset=utf8'
     GOOGLE_OAUTH2_CLIENT_SECRETS_FILE = 'C:\\Users\\khtks\\PycharmProjects\\ariari\\application\\credentials.json'
-
+    # for hisan
 
 class TestConfig(Config):
     ENV = 'testing'
