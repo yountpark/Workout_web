@@ -17,7 +17,7 @@ def index():
     else:
         user_name = None
 
-    return render_template('/homepage/index.html', user_name=user_name)
+    return render_template('homepage/index.html', user_name=user_name)
 
 
 @route_bp.route('/rank')
@@ -91,4 +91,3 @@ def exercise_end():
     print(request.json['kind'])
     print(request.json['count'])
     return redirect(url_for('routs.index'))
-

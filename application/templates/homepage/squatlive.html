@@ -38,7 +38,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -388,7 +388,7 @@
                     model = await tmPose.load(modelURL, metadataURL);
                     maxPredictions = model.getTotalClasses();
 
-                    
+
 
                   }
                   async function start() {
@@ -416,6 +416,10 @@
                     stop_var = 1;
                   }
 
+                  function print_cnt(){
+                    document.getElementById("cnt").innerHTML = count;
+                  }
+
 
                   async function loop(timestamp) {
                     webcam.update(); // update the webcam frame
@@ -428,7 +432,14 @@
                         'count': count,
                         'kind': 'squat'
                       }
-                      fetch('http://localhost:5000/exercise_end', {
+                      fetch('http://localhost:5000/cumulative-result', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                      }).then(function (res) {
+                        console.log(res);
+                      })
+                      fetch('http://localhost:5000/total-result', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data)
@@ -458,6 +469,7 @@
                         count += 1;
                         stand = 0;
                       }
+                      print_cnt();
                       console.log(count);
                       labelContainer.childNodes[i].innerHTML = classPrediction;
                     }
@@ -489,7 +501,7 @@
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
               <h6 class="m-0 font-weight-bold text-primary">운동갯수</h6>
-              <p id="count">0</p>
+              <p id="cnt">0</p>
 
             </div>
 
