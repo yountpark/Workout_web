@@ -6,8 +6,6 @@ class User(db.Model):
     google_id = db.Column(db.String(30), primary_key=True)
     age = db.Column(db.Integer(), nullable=False)
     sex = db.Column(db.Boolean(), nullable=False) # 0 : Male, 1 : Female
-    height = db.Column(db.Integer(), nullable=True)
-    weight = db.Column(db.Integer(), nullable=True)
 
     def __repr__(self):
         return "Google ID : %r  /  나이 : %r  /  성별 : %r" % (self.google_id, self.age, ("Male" if self.sex == 0 else "Female"))
