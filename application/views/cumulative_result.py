@@ -21,9 +21,11 @@ class Cumulative(Resource):
         if not user:
             return redirect('/authorize')
 
-        record = CumulativeResult.query.filter(CumulativeResult.google_id == id).all()
+        # record = CumulativeResult.query.filter(CumulativeResult.google_id == id).all()
+        record = CumulativeResult.query.all()
 
-        return cumulative_schema.dumps(record, many=True)
+        # return cumulative_schema.dumps(record, many=True)
+        return render_template('homepage/rank.html', placeholder=record)
 
     def post(self, id=None):
         data = request.args
