@@ -9,7 +9,7 @@ class TotalResults(db.Model): # 매번 운동 할 때마다 기록하는 값 ==>
     time = db.Column(db.DateTime(), primary_key=True, default=datetime.datetime.now())
     # (datetime.datetime.now().isoformat() + 'Z')[:10] + ' ' + (datetime.datetime.now().isoformat() + 'Z')[11:16]
     count = db.Column(db.Integer(), nullable=False)
-    accuracy = db.Column(db.Integer(), nullable=False)
+    #accuracy = db.Column(db.Integer(), nullable=False)
     type = db.Column(db.String(5), nullable=False)
 
     def __repr__(self):
