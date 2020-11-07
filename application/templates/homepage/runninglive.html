@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>아리아리 - 제자리뛰기 실시간촬영</title>
+  <title>아리아리 - 덤벨숄더프레스 실시간촬영</title>
 
   <!-- Custom fonts for this template-->
   <link href="static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -81,13 +81,13 @@
       <li class="nav-item active">
         <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-wrench"></i>
-          <span>제자리뛰기</span>
+          <span>덤벨숄더프레스</span>
         </a>
         <div id="collapseUtilities" class="collapse show" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">제자리뛰기 운동하기:</h6>
+            <h6 class="collapse-header">덤벨숄더프레스 운동하기:</h6>
             <a class="collapse-item active" href="/runninglive">실시간촬영</a>
-            <a class="collapse-item" href="/runningvideo">동영상 업로드</a>
+            <a class="collapse-item" href="/runningvideo">동영상 업로드(준비중)</a>
             <!-- <a class="collapse-item" href="utilities-animation.html">Animations</a>
             <a class="collapse-item" href="utilities-other.html">Other</a> -->
           </div>
@@ -103,7 +103,7 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      
+
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
@@ -401,9 +401,10 @@
                           }
                           else{
                             var data = {
-                              'count' : count,
-                              'kind' : 'shoulder'
+                              'count' : count, //갯수 키
+                              'kind' : 'shoulder' //어떤 운동
                             }
+                            //서버로 값을 줌
                             fetch('http://localhost:5000/exercise_end', {
                               method : 'POST',
                               headers: { 'Content-Type': 'application/json' },
