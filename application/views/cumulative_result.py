@@ -10,7 +10,7 @@ cumulative_bp = Blueprint("cumulative", __name__, url_prefix='/cumulative-result
 cumulative_schema = CumulativeResultSchema()
 session = db.session
 api = api(cumulative_bp)
-headers = {'Content-Type': 'text/html'}
+headers = {'Content-Type': 'application/json'}
 
 
 class Cumulative(Resource):
@@ -28,21 +28,21 @@ class Cumulative(Resource):
         return render_template('homepage/rank.html', placeholder=record)
 
     def post(self, id=None):
-        data = request.args
-
+        data = request.json
+        print("cumul  "+ str(data))
         google_id = data.get('google_id')
         kind = data.get('kind')
         count = data.get('count')
 
-        old_result = CumulativeResult.query.filter(CumulativeResult.google_id == google_id and CumulativeResult.kind == kind).one()
+        # old_result = CumulativeResult.query.filter(CumulativeResult.google_id == google_id and CumulativeResult.kind == kind).one()
 
-        CumulativeResult.query.filter(CumulativeResult.google_id == google_id and CumulativeResult.kind == kind).delete()
-        session.commit()
+        # CumulativeResult.query.filter(CumulativeResult.google_id == google_id and CumulativeResult.kind == kind).delete()
+        # session.commit()
 
-        new_result = CumulativeResult(google_id=google_id, times=(old_result.get_times() + 1), cumulative_count=(old_result.get_count() + int(count)), kind=kind)
+        # new_result = CumulativeResult(google_id=google_id, times=(old_result.get_times() + 1), cumulative_count=(old_result.get_count() + int(count)), kind=kind)
 
-        session.add(new_result)
-        session.commit()
+        # session.add(new_result)
+        # session.commit()
 
         return "register complete!"
 

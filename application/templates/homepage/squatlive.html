@@ -432,7 +432,14 @@
                         'count': count,
                         'kind': 'squat'
                       }
-                      fetch('http://localhost:5000/exercise_end', {
+                      fetch('http://localhost:5000/cumulative-result', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                      }).then(function (res) {
+                        console.log(res);
+                      })
+                      fetch('http://localhost:5000/total-result', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data)
