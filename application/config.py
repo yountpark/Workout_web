@@ -27,7 +27,7 @@ class TestConfig(Config):
     TESTING = True
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = 'mysql://sam:z748159!@localhost:3306/test_db?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql://sam:0916!@localhost:3306/test_db?charset=utf8'
 
 
 config_name = dict(

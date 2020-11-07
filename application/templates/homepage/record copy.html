@@ -9,17 +9,14 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>아리아리 - 나의 랭킹</title>
+  <title>아리아리 - 나의 기록</title>
 
-  <!-- Custom fonts for this template -->
+  <!-- Custom fonts for this template-->
   <link href="static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
+  <!-- Custom styles for this template-->
   <link href="static/css/sb-admin-2.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this page -->
-  <link href="static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -97,16 +94,18 @@
         마이페이지
       </div>
 
+      <!-- Nav Item - Pages Collapse Menu -->
+    
 
       <!-- Nav Item - Charts -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="/record">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>나의 기록</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="/rank">
           <i class="fas fa-fw fa-table"></i>
           <span>나의 랭킹</span></a>
@@ -282,7 +281,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{% if user_name is not none %} {{ user_name }} {% else %} 로그인 해 주세요 {% endif %}&nbsp;</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{% if user_name is not none %} {{ user_name }} {% else %} 로그인 해 주세요 {% endif %} &nbsp;</span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -320,47 +319,61 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">이 주의 랭킹</h1>
-          <p class="mb-4"> 이번주 스쿼트와 덤벨숄더프레스 운동별 기록  <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+          <h1 class="h3 mb-2 text-gray-800">나의 기록</h1>
+          <p class="mb-4"> 주별과 월별 나의 제자리뛰기와 스쿼트 기록을 확인할 수 있습니다. <a target="_blank" href="https://www.chartjs.org/docs/latest/">official Chart.js documentation</a>.</p>
 
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">이 주의 랭킹</h6>
+          <!-- Content Row -->
+          <div class="row">
+
+            <div class="col-xl-8 col-lg-7">
+
+              <!-- Area Chart -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">월별 운동량</h6>
+                </div>
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                  </div>
+                  <hr>
+                  Styling for the area chart can be found in the <code>/js/demo/chart-area-demo.js</code> file.
+                </div>
+              </div>
+
+              <!-- Bar Chart -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">월별 제자리뛰기 운동량</h6>
+                </div>
+                <div class="card-body">
+                  <div class="chart-bar">
+                    <canvas id="myBarChart1"></canvas>
+                  </div>
+                  <hr>
+                  Styling for the bar chart can be found in the <code>/js/demo/chart-bar-demo.js</code> file.
+                </div>
+              </div>
+
             </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>랭킹</th>
-                      <th>아이디</th>
-                      <th>스쿼트</th>
-                      <th>덤벨숄더프레스</th>
-                      <th>나이</th>
-                      <th>가입일</th>
-                    </tr>
-                  </thead>
 
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>최어진</td>
-                      <td>20</td>
-                      <td>30</td>
-                      <td>23</td>
-                      <td>2020/10/11</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>박영인</td>
-                      <td>3</td>
-                      <td>5</td>
-                      <td>23</td>
-                      <td>2020/10/11</td>
-                    </tr>
-                  </tbody>
-                </table>
+          
+
+            <!-- Donut Chart -->
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">나의 운동비중</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4">
+                    <canvas id="myPieChart"></canvas>
+                  </div>
+                  <hr>
+                  Styling for the donut chart can be found in the <code>/js/demo/chart-pie-demo.js</code> file.
+                </div>
               </div>
             </div>
           </div>
@@ -422,11 +435,12 @@
   <script src="static/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="static/vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="static/vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="static/js/demo/datatables-demo.js"></script>
+  <script src="static/js/demo/chart-area-demo.js"></script>
+  <script src="static/js/demo/chart-pie-demo.js"></script>
+  <script src="static/js/demo/chart-bar-demo.js"></script>
 
 </body>
 
