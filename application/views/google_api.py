@@ -68,7 +68,7 @@ def user_auth():
     session['google_id'] = google_id
     session['user_name'] = id_info.get('name')
 
-    return redirect(url_for('main'))
+    return redirect(url_for('init'))
 
 
 def credentials_to_dict(credentials):

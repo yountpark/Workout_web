@@ -48,22 +48,15 @@ def create_app(mode='dev'):
 
     @app.route('/')
     def init():
-        return render_template('homepage/index.html', user_name=None)
 
-    @app.route('/main')
-    def main():
-        if 'google_id' not in session and 'user_name' not in session:
-            return redirect(url_for('google_api.authorize'))
+        if 'user_name' in session:
 
-        google_id = session['google_id']
-        user_name = session['user_name']
+            user_name = session['user_name']
+            return render_template('homepage/index.html', user_name=user_name)
 
-        return render_template('homepage/index.html', user_name=user_name)
+        else:
+            return render_template('homepage/index.html', user_name=None)
 
-
-    # @app.route('/test')
-    # def test():
-    #     return render_template('cam.html')
 
     @app.route('/my_model/squat/<path:path>')
     def send_squat_file(path):
