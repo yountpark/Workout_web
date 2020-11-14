@@ -21,17 +21,6 @@ def index():
     return render_template('/homepage/index.html', user_name=user_name)
 
 
-@route_bp.route('/record')
-def record():
-
-    if 'user_name' in session:
-        user_name = session['user_name']
-    else:
-        user_name = None
-
-    return render_template('/homepage/record.html', user_name=user_name)
-
-
 @route_bp.route('/runninglive')
 def runninglive():
 
