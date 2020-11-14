@@ -9,6 +9,7 @@ route_bp = Blueprint("routs", __name__, url_prefix='/')
 def world():
     return "Hello World"
 
+
 @route_bp.route('/index')
 def index():
 
@@ -17,18 +18,7 @@ def index():
     else:
         user_name = None
 
-    return render_template('homepage/index.html', user_name=user_name)
-
-
-@route_bp.route('/rank')
-def rank():
-
-    if 'user_name' in session:
-        user_name = session['user_name']
-    else:
-        user_name = None
-
-    return render_template('/homepage/rank.html', user_name=user_name)
+    return render_template('/homepage/index.html', user_name=user_name)
 
 
 @route_bp.route('/record')
@@ -91,3 +81,4 @@ def exercise_end():
     print(request.json['kind'])
     print(request.json['count'])
     return redirect(url_for('routs.index'))
+
