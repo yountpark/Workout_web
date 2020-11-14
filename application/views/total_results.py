@@ -2,13 +2,12 @@ from application import db, api
 from application.models.user import User
 from application.models.total_results import TotalResults
 from application.schemata.total_results import TotalResultsSchema
-from flask import Blueprint, request, Response, make_response, render_template, redirect
+from flask import Blueprint, request, Response, make_response, render_template, redirect, session
 from flask_restful import Resource
 import datetime
 
 total_bp = Blueprint("total", __name__, url_prefix='/total-result')
 total_schema = TotalResultsSchema()
-session = db.session
 api = api(total_bp)
 headers = {'Content-Type': 'application/json'}
 
@@ -29,10 +28,11 @@ class TotalResult(Resource):
 
     def post(self, id=None):
         data = request.json
-        print("total  "+ str(data))
-        # exercise_result = TotalResults(google_id=data.get('google_id'), count=data.get('count'), kind=data.get('kind'))
-        # session.add(exercise_result)
-        # session.commit()
+        google_id = session['google_id']
+
+        exercise_result = TotalResults(google_id=data.get('google_id'), count=data.get('count'), kind=data.get('kind'))
+        session.add(exercise_result)
+        session.commit()
 
         return "register complete!"
 
