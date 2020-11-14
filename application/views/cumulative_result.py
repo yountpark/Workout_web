@@ -2,30 +2,29 @@ from application import db, api
 from application.models.cumulative_result import CumulativeResult
 from application.models.user import User
 from application.schemata.cumulative_result import CumulativeResultSchema
-from flask import Blueprint, request, Response, make_response, render_template, redirect
+from flask import Blueprint, request, Response, make_response, render_template, redirect, session, url_for
 from flask_restful import Resource
 import datetime
 
-cumulative_bp = Blueprint("cumulative", __name__, url_prefix='/cumulative-result')
+cumulative_bp = Blueprint("cumulative", __name__, url_prefix='/rank')
 cumulative_schema = CumulativeResultSchema()
-session = db.session
+# session = db.session
 api = api(cumulative_bp)
 headers = {'Content-Type': 'application/json'}
 
 
 class Cumulative(Resource):
 
-    def get(self, id):
-        user = User.query.filter(User.google_id == id).all()
+    def get(self):
 
-        if not user:
-            return redirect('/authorize')
+        if 'google_id' in session:
+            google_id = session['google_id']
+        else:
+            return redirect(url_for('google_api.authorize'))
 
-        # record = CumulativeResult.query.filter(CumulativeResult.google_id == id).all()
         record = CumulativeResult.query.all()
 
-        # return cumulative_schema.dumps(record, many=True)
-        return render_template('homepage/rank.html', placeholder=record)
+        return render_template('homepage/rank.html', temp=record)
 
     def post(self, id=None):
         data = request.json
