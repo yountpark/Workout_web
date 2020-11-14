@@ -424,10 +424,6 @@
 										stop_var = 1;
 									}
 
-                  function print_cnt(){
-                    document.getElementById("cnt").innerHTML = count;
-                  }
-
 
 									async function loop(timestamp) {
 										webcam.update(); // update the webcam frame
@@ -440,14 +436,14 @@
 												'count': count,
 												'kind': 'shoulder'
 											}
-											fetch(host + 'cumulative-result', {
+											fetch(host + 'ranking', {
 												method: 'POST',
 												headers: { 'Content-Type': 'application/json' },
 												body: JSON.stringify(data)
 											}).then(function (res) {
 												console.log(res);
 											})
-											fetch(host+'total-result', {
+											fetch(host+'record', {
 												method: 'POST',
 												headers: { 'Content-Type': 'application/json' },
 												body: JSON.stringify(data)
@@ -477,7 +473,6 @@
 												count += 1;
 												stand = 0;
 											}
-                      print_cnt();
 											console.log(count);
 											// labelContainer.childNodes[i].innerHTML = classPrediction;
 										}

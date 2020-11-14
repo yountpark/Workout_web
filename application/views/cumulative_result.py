@@ -25,8 +25,14 @@ class Cumulative(Resource):
         return make_response(render_template('homepage/rank.html', user_name=user_name, hi=cumulative_schema.dumps(result, many=True)))
 
     def post(self, id=None):
+        
         data = request.json
-        google_id = session['google_id']
+        
+        if 'google_id' not in session:
+            return redirect(url_for('google_api.authorize'))
+        else:
+            google_id = session['google_id']
+        
         kind = data.get('kind')
         count = data.get('count')
 

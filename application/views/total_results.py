@@ -22,17 +22,20 @@ class TotalResult(Resource):
             google_id = session['google_id']
 
         result = TotalResults.query.filter(TotalResults.google_id == google_id).all()
-
         return total_schema.dump(result, many=True)
 
     def post(self, id=None):
+
         data = request.json
+        
+        if 'google_id' not in session:
+            return redirect(url_for('google_api.authorize'))
+        else:
+            google_id = session['google_id']
 
-        google_id = session['google_id']
-
-        exercise_result = TotalResults(google_id=data.get('google_id'), count=data.get('count'), kind=data.get('kind'))
-        session.add(exercise_result)
-        session.commit()
+        exercise_result = TotalResults(google_id=google_id, time=datetime.datetime.now(), count=data.get('count'), kind=data.get('kind'))
+        db.session.add(exercise_result)
+        db.session.commit()
 
         return "register complete!"
 
