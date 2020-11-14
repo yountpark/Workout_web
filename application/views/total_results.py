@@ -27,10 +27,12 @@ class TotalResult(Resource):
 
     def post(self, id=None):
         data = request.json
-        print("total  "+ str(data))
-        # exercise_result = TotalResults(google_id=data.get('google_id'), count=data.get('count'), kind=data.get('kind'))
-        # db.session.add(exercise_result)
-        # db.session.commit()
+
+        google_id = session['google_id']
+
+        exercise_result = TotalResults(google_id=data.get('google_id'), count=data.get('count'), kind=data.get('kind'))
+        session.add(exercise_result)
+        session.commit()
 
         return "register complete!"
 

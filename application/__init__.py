@@ -48,15 +48,21 @@ def create_app(mode='dev'):
 
     @app.route('/')
     def init():
+        return render_template('homepage/index.html', user_name=None)
 
-        if 'user_name' in session:
+    @app.route('/main')
+    def main():
+        if 'google_id' not in session and 'user_name' not in session:
+            return redirect(url_for('google_api.authorize'))
 
-            user_name = session['user_name']
-            return render_template('homepage/index.html', user_name=user_name)
+        google_id = session['google_id']
+        user_name = session['user_name']
 
-        else:
-            return render_template('homepage/index.html', user_name=None)
+        return render_template('homepage/index.html', user_name=user_name)
 
+    # @app.route('/test')
+    # def test():
+    #     return render_template('cam.html')
 
     @app.route('/my_model/squat/<path:path>')
     def send_squat_file(path):
@@ -67,6 +73,15 @@ def create_app(mode='dev'):
     def send_shoulder_file(path):
         print(path)
         return send_from_directory('my_model/shoulder/', path)
+
+    # @app.after_request
+    # def after_request(response):
+    #     print("kwjefiowjefiljweoifhilwef")
+    #     header = response.headers
+    #     response.headers.add("Access-Control-Allow-Origin", "*")
+    #     response.headers.add("Access-Control-Allow-Headers", "*")
+    #     print(response)
+    #     return response
 
     return app
 

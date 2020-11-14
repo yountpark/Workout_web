@@ -25,21 +25,26 @@ class Cumulative(Resource):
         return make_response(render_template('homepage/rank.html', user_name=user_name, hi=cumulative_schema.dumps(result, many=True)))
 
     def post(self, id=None):
-        data = request.args
-
-        google_id = data.get('google_id')
+        data = request.json
+        google_id = session['google_id']
         kind = data.get('kind')
         count = data.get('count')
 
-        old_result = CumulativeResult.query.filter(CumulativeResult.google_id == google_id and CumulativeResult.kind == kind).one()
+        try:
+            old_result = CumulativeResult.query.filter(CumulativeResult.google_id == google_id and CumulativeResult.kind == kind).one()
 
-        CumulativeResult.query.filter(CumulativeResult.google_id == google_id and CumulativeResult.kind == kind).delete()
-        db.session.commit()
+            CumulativeResult.query.filter(CumulativeResult.google_id == google_id and CumulativeResult.kind == kind).delete()
+            db.session.commit()
 
-        new_result = CumulativeResult(google_id=google_id, times=(old_result.get_times() + 1), cumulative_count=(old_result.get_count() + int(count)), kind=kind)
+            new_result = CumulativeResult(google_id=google_id, times=(old_result.get_times() + 1), cumulative_count=(old_result.get_count() + int(count)), kind=kind)
 
-        db.session.add(new_result)
-        db.session.commit()
+            db.session.add(new_result)
+            db.session.commit()
+        except:
+            new_result = CumulativeResult(google_id=google_id, times= 1, cumulative_count=(int(count)), kind=kind)
+
+            db.session.add(new_result)
+            db.session.commit()
 
         return "register complete!"
 
