@@ -10,7 +10,7 @@ total_bp = Blueprint("total", __name__, url_prefix='/total-result')
 total_schema = TotalResultsSchema()
 session = db.session
 api = api(total_bp)
-headers = {'Content-Type': 'text/html'}
+headers = {'Content-Type': 'application/json'}
 
 
 class TotalResult(Resource):
@@ -28,11 +28,11 @@ class TotalResult(Resource):
         # return total_schema.dump(total, many=True)
 
     def post(self, id=None):
-        data = request.args
-
-        exercise_result = TotalResults(google_id=data.get('google_id'), count=data.get('count'), kind=data.get('kind'))
-        session.add(exercise_result)
-        session.commit()
+        data = request.json
+        print("total  "+ str(data))
+        # exercise_result = TotalResults(google_id=data.get('google_id'), count=data.get('count'), kind=data.get('kind'))
+        # session.add(exercise_result)
+        # session.commit()
 
         return "register complete!"
 
