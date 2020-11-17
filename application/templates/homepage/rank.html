@@ -320,8 +320,8 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">이 주의 랭킹{{hi}}</h1>
-          <p class="mb-4"> 이번주 스쿼트와 덤벨숄더프레스 운동별 기록  <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+          <h1 class="h3 mb-2 text-gray-800">이 주의 랭킹</h1>
+          <p class="mb-4"> 이번주 스쿼트와 덤벨숄더프레스 운동별 기록 <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -338,12 +338,33 @@
                       <th>스쿼트</th>
                       <th>덤벨숄더프레스</th>
                       <th>나이</th>
-                      <th>가입일</th>
+                      <th>마지막운동일</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    <tr>
+                    <ul>
+                    {% for a in hi %}
+                      {% if a.kind == 'squat' %}
+                      <tr>
+                        <td>1</td>
+                        <td>{{a.google_id}} </td>
+                        {% if a.kind == 'squat' %}
+                          <td>{{a.times}} </td>
+                        {% for b in hi %}
+                          {% if (a.google_id == b.google_id) and (b.kind == 'dsp')%}
+                          <td>{{b.times}} </td>
+
+                          {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                      </tr> 
+                      {% endif%}                     
+                      {% endfor %}
+                    </ul>
+                
+                
+                    <!-- <tr>
                       <td>1</td>
                       <td>최어진</td>
                       <td>20</td>
@@ -358,7 +379,7 @@
                       <td>5</td>
                       <td>23</td>
                       <td>2020/10/11</td>
-                    </tr>
+                    </tr> -->
                   </tbody>
                 </table>
               </div>
