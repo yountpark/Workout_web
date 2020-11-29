@@ -22,7 +22,7 @@ class TotalResult(Resource):
             google_id = session['google_id']
 
         result = TotalResults.query.filter(TotalResults.google_id == google_id).all()
-        return total_schema.dump(result, many=True)
+        return make_response(render_template('homepage/record.html', user_name=google_id, hello=result))
 
     def post(self, id=None):
 
