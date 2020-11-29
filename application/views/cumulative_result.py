@@ -23,7 +23,7 @@ class Cumulative(Resource):
 
         result = CumulativeResult.query.all()
 
-        return make_response(render_template('homepage/rank.html', user_name=user_name, hi=cumulative_schema.dumps(result, many=True)))
+        return make_response(render_template('homepage/rank.html', user_name=user_name, hi=result))
 
     def post(self, id=None):
         
