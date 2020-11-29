@@ -348,18 +348,34 @@
                       {% if a.kind == 'squat' %}
                       <tr>
                         <td>1</td>
-                        <td>{{a.google_id}} </td>
+                        <td>{{a.google_id}} </td> 
                         {% if a.kind == 'squat' %}
                           <td>{{a.times}} </td>
                         {% for b in hi %}
                           {% if (a.google_id == b.google_id) and (b.kind == 'dsp')%}
                           <td>{{b.times}} </td>
-
                           {% endif %}
                         {% endfor %}
                         {% endif %}
                       </tr> 
-                      {% endif%}                     
+                      {% endif%}
+
+
+                      {% if a.kind == 'dsp' %}
+                      <tr>
+                        <td>1</td>
+                        <td>{{a.google_id}} </td> 
+                        {% for b in hi %}
+                          {% if (a.google_id == b.google_id) and (b.kind == 'squat')%}
+                          <td>{{b.times}} </td>
+                          {% endif %}
+                        {% endfor %}
+                        {% if a.kind == 'dsp' %}
+                          <td>{{a.times}} </td>
+                        {% endif %}
+                      </tr> 
+                      {% endif%}
+
                       {% endfor %}
                     </ul>
                 
